@@ -1,145 +1,79 @@
-/* =====================
-   scratch.css
-   Soccer Hobby Page Styles
-   ===================== */
-
-/* 1. BODY — background color, font family */
 body {
-  background-color: #f5f5f0;
-  font-family: Georgia, 'Times New Roman', serif;
-  margin: 0;
-  padding: 0;
-  color: #222222;
+
+font-family: Arial, sans-serif;
+background-color: #f4f6f8;
+margin: 0;
+padding: 0;
+
 }
 
-/* 2. NAVBAR DIV */
+/* NAVBAR */
+
 #navbar {
-  background-color: #1a1a2e;
-  padding: 12px 20px;
-  text-align: center;
+
+background-color: #111;
+color: white;
+padding: 15px;
+text-align: center;
+
 }
 
 #navbar a {
-  color: #d4af37;
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
+
+color: white;
+text-decoration: none;
+margin: 0 10px;
+font-weight: bold;
+
 }
 
-#navbar a:hover {
-  text-decoration: underline;
-  color: #ffffff;
-}
+/* HEADER */
 
-/* 3. HEADER DIV */
 #header {
-  background-color: #1a1a2e;
-  color: #ffffff;
-  text-align: center;
-  padding: 50px 20px 40px 20px;
-  border-bottom: 5px solid #d4af37;
+
+background-color: #eaeaea;
+padding: 40px;
+text-align: center;
+
 }
 
-#header h1 {
-  font-size: 48px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #d4af37;
-  margin-bottom: 10px;
+/* CONTENT SECTIONS */
+
+.section {
+
+background-color: white;
+margin: 40px auto;
+padding: 30px;
+width: 80%;
+border-radius: 10px;
+box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+
 }
 
-#header p {
-  font-size: 20px;
-  color: #cccccc;
-  font-style: italic;
+/* IMAGES */
+
+img {
+
+margin-top: 20px;
+border-radius: 6px;
+
 }
 
-/* 4. CONTENT SECTIONS DIV */
-.content-section {
-  max-width: 800px;
-  margin: 40px auto;
-  background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 8px;
-  border-left: 6px solid #1a1a2e;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+/* VIDEO */
+
+iframe {
+
+margin-top: 20px;
+
 }
 
-.content-section h2 {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #1a1a2e;
-  border-bottom: 2px solid #d4af37;
-  padding-bottom: 8px;
-}
+/* FOOTER */
 
-.content-section h3 {
-  color: #333333;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.content-section p {
-  color: #444444;
-  line-height: 1.7;
-  font-size: 16px;
-}
-
-/* 5. ORDERED AND UNORDERED LISTS */
-ol {
-  color: #222222;
-  font-size: 16px;
-  line-height: 1.8;
-}
-
-ul {
-  color: #555555;
-  font-size: 15px;
-}
-
-/* 6. IMAGE DIV */
-#image-div {
-  text-align: center;
-  margin: 20px 0;
-}
-
-#image-div img {
-  max-width: 100%;
-  border: 4px solid #1a1a2e;
-  border-radius: 4px;
-}
-
-/* 7. VIDEO DIV */
-#video-div {
-  text-align: center;
-  margin: 20px 0;
-}
-
-#video-div iframe {
-  max-width: 100%;
-  border: 4px solid #1a1a2e;
-  border-radius: 4px;
-}
-
-/* 8. TABLEAU DIV */
-#tableau-div {
-  text-align: center;
-  margin: 20px 0;
-  min-height: 100px;
-}
-
-/* 9. CAPTION TEXT */
-.caption {
-  font-size: 13px;
-  color: #888888;
-  font-style: italic;
-  margin-top: 8px;
-}
-
-/* 10. FOOTER DIV */
 #footer {
-  background-color: #1a1a2e;
-  color: #aaaaaa;
-  text-align: center;
-  padding: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  margin-top: 60px;
+
+text-align: center;
+padding: 20px;
+background-color: #111;
+color: white;
+
 }
