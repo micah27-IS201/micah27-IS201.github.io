@@ -1,122 +1,225 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Love for Soccer</title>
-  <link rel="stylesheet" href="scratch.css">
+
+  <!-- LINK TO YOUR CUSTOM CSS -->
+
+  <link rel="stylesheet" href="css/scratch.css">
+
 </head>
+
 <body>
 
-  <!-- NAVIGATION -->
-  <div id="navbar">
-    <a href="index.html">← Back to Professional Page</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="app.html">Check Out My Web App</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#my-story">My Story</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#real-madrid">Real Madrid</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#marcelo">Marcelo</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#video-section">Favorite Moment</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#stats">Stats</a>
+<!-- NAVIGATION -->
+
+<div id="navbar">
+  <a href="index.html">← Back to Professional Page</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="app.html">Check Out My Web App</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#my-story">My Story</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#real-madrid">Real Madrid</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#marcelo">Marcelo</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#video-section">Favorite Moment</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#stats">Stats</a>
+</div>
+
+<!-- HEADER -->
+
+<div id="header">
+  <h1>My Love for Soccer ⚽</h1>
+  <p>Raised in Madrid. Raised on the game.</p>
+</div>
+
+<!-- MY STORY -->
+
+<div id="my-story" class="content-section">
+
+  <h2>My Story</h2>
+
+  <p>
+    Growing up in Madrid, soccer was more than just a hobby. It connected me to the people around me.
+    It helped me make friends, learn the culture, and ultimately helped shape who I am today.
+  </p>
+
+  <h3>Why I Love Soccer</h3>
+
+  <!-- ORDERED LIST WITH UNORDERED LIST INSIDE -->
+
+  <ol>
+
+```
+<li>The Fundamentals
+  <ul>
+    <li>Running with the ball at my feet</li>
+    <li>Scoring an important goal</li>
+    <li>Building chemistry with teammates</li>
+  </ul>
+</li>
+
+<li>The Culture
+  <ul>
+    <li>The feeling inside a stadium after a goal</li>
+    <li>The energy on matchday</li>
+    <li>Singing in the Bernabéu stands</li>
+  </ul>
+</li>
+
+<li>The History
+  <ul>
+    <li>Witnessing important sporting moments</li>
+    <li>Champions League and World Cup games</li>
+    <li>Seeing Cristiano Ronaldo and Messi compete</li>
+  </ul>
+</li>
+```
+
+  </ol>
+
+</div>
+
+<!-- REAL MADRID SECTION -->
+
+<div id="real-madrid" class="content-section">
+
+  <h2>Real Madrid — My Club</h2>
+
+  <p>
+    Real Madrid has always been special to me. Even before living there, I followed the club,
+    its history, players, and incredible fan culture. Living in Madrid allowed me to experience
+    the atmosphere of the city and the passion of the supporters firsthand.
+  </p>
+
+  <div id="image-div">
+
+```
+<img
+  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Santiago_Bernab%C3%A9u_Stadium_-_Exterior_02.JPG/1280px-Santiago_Bernab%C3%A9u_Stadium_-_Exterior_02.JPG"
+  alt="Santiago Bernabeu Stadium"
+  width="700">
+
+<p class="caption">
+  Santiago Bernabéu Stadium — home of Real Madrid.
+  <br>
+  <small>Image: Wikimedia Commons (CC BY-SA 3.0)</small>
+</p>
+```
+
   </div>
 
-  <!-- HEADER -->
-  <div id="header">
-    <h1>My Love for Soccer ⚽</h1>
-    <p>Raised in Madrid. Raised on the game.</p>
+</div>
+
+<!-- MARCELO -->
+
+<div id="marcelo" class="content-section">
+
+  <h2>My Favorite Player: Marcelo</h2>
+
+  <p>
+    Marcelo was one of the most entertaining players to ever wear the Real Madrid jersey.
+    His creativity, technique, and partnership with Cristiano Ronaldo made the left side
+    of the field incredibly dangerous. Watching him play live was unforgettable.
+  </p>
+
+</div>
+
+<!-- YOUTUBE VIDEO -->
+
+<div id="video-section" class="content-section">
+
+  <h2>My Favorite Real Madrid Moment</h2>
+
+  <p>
+    Cristiano Ronaldo’s bicycle kick against Juventus in the Champions League is one of the
+    greatest goals ever scored. The technique, timing, and difficulty make it unforgettable.
+  </p>
+
+  <div id="video-div">
+
+```
+<iframe
+  width="700"
+  height="394"
+  src="https://www.youtube.com/embed/Nt8198a0acA"
+  title="Cristiano Ronaldo Bicycle Kick"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+```
+
   </div>
 
-  <!-- MY STORY SECTION (on-page anchor target) -->
-  <div id="my-story" class="content-section">
-    <h2>My Story</h2>
-    <p>Growing up in Madrid, soccer was more than just a hobby; rather, it was what connected me to everyone else. It was how I made friends, learned the language, and it completely helped mold me into the person I am today. </p>
+</div>
 
-    <!-- NESTED LIST: ordered list with unordered list inside -->
-    <h3>Why I Love Soccer</h3>
-    <ol>
-      <li>The Fundamentals
-        <ul>
-          <li>Running with the ball at my feet</li>
-          <li>Scoring an important goal</li>
-          <li>Building chemistry with my teammates and helping each other play at a high level</li>
-        </ul>
-      </li>
-      <li>The Culture
-        <ul>
-          <li>The feeling inside a stadium when a goal is scored</li>
-          <li>The palpable energy on matchday</li>
-          <li>Singing in the Bernabeu stands</li>
-        </ul>
-      </li>
-      <li>The History
-        <ul>
-          <li>Witnessing an important part of sport history</li>
-          <li>Champions League and World Cup games</li>
-          <li>Seeing Cristiano Ronaldo and Lionel Messi play against each other</li>
-        </ul>
-      </li>
-    </ol>
+<!-- TABLEAU GRAPH -->
+
+<div id="stats" class="content-section">
+
+  <h2>Real Madrid Stats & Data (2022–2023)</h2>
+
+  <p>
+    Below is a Tableau visualization analyzing Real Madrid's performance during the 2022–2023 season.
+  </p>
+
+  <div class="tableauPlaceholder" id="vizRealMadridStats" style="position: relative">
+
+```
+<noscript>
+  <a href="#">
+    <img
+      alt="Real Madrid Tableau Dashboard"
+      src="https://public.tableau.com/static/images/Ca/CarloAncelottisRealMadridAnalysis/OverviewDashboard/1_rss.png"
+      style="border: none">
+  </a>
+</noscript>
+
+<object class="tableauViz" style="display:none;">
+
+  <param name="host_url" value="https://public.tableau.com/" />
+  <param name="embed_code_version" value="3" />
+  <param name="name" value="CarloAncelottisRealMadridAnalysis/OverviewDashboard" />
+  <param name="tabs" value="no" />
+  <param name="toolbar" value="yes" />
+
+</object>
+```
+
   </div>
 
-  <!-- REAL MADRID SECTION -->
-  <div id="real-madrid" class="content-section">
-    <h2>Real Madrid — My Club</h2>
-    <p>Real Madrid has always been special to me. Even before I lived there, I was familiar with the club, the players, the history, and the culture surrounding the association. Being able to actually live there meant I could interact with fans who felt the same way as I did about it. It was really neat.  </p>
+  <script type="text/javascript">
 
-    <!-- SANTIAGO BERNABEU IMAGE (free use from Wikimedia Commons CC BY-SA 3.0) -->
-    <div id="image-div">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Santiago_Bernab%C3%A9u_Stadium_-_Exterior_02.JPG/1280px-Santiago_Bernab%C3%A9u_Stadium_-_Exterior_02.JPG"
-        alt="Santiago Bernabéu Stadium exterior"
-        width="700">
-      <p class="caption">Santiago Bernabéu Stadium, Madrid — My home away from home.<br>
-        <small>Image: Wikimedia Commons, CC BY-SA 3.0</small>
-      </p>
-    </div>
-  </div>
+    var divElement = document.getElementById("vizRealMadridStats");
+    var vizElement = divElement.getElementsByTagName("object")[0];
 
-  <!-- MARCELO SECTION -->
-  <div id="marcelo" class="content-section">
-    <h2>My Favorite Player: Marcelo</h2>
-    <p>One of my favorite players to ever play for the team is Marcelo. He has one of the best first touches in soccer history and watching him play with Ronaldo on a weekly basis was awesome. I miss having him at the club and love going back and watching old highlights from when he was there. </p>
-  </div>
+    vizElement.style.width = "100%";
+    vizElement.style.height = "800px";
 
-  <!-- VIDEO SECTION -->
-  <div id="video-section" class="content-section">
-    <h2>My Favorite Real Madrid Moment</h2>
-    <p>This video shows Cristiano Ronaldo scoring a bicycle kick in a high-stakes quarterfinal of the Champions League. Everything about his technique is incredible. I remember watching it live and how it blew my mind then. It still does, to this day.</p>
-    <div id="video-div">
-     
-      <iframe
-        width="700"
-        height="394"
-        src="https://www.youtube.com/embed/Nt8198a0acA"
-        title="Real Madrid Highlight"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-      <p class="caption"></p>
-    </div>
-  </div>
+    var scriptElement = document.createElement("script");
+    scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
 
-  <!-- TABLEAU SECTION -->
-  <div id="stats" class="content-section">
-    <h2>Real Madrid Stats & Data (22/23)</h2>
-    <p>The following table depicts some of the key statistics during Real Madrid's impressive 2022/-2023 season.</p>
-    <div id="tableau-div">
-      <p><em><div class='tableauPlaceholder' id='viz1776306529223' style='position: relative'><noscript><a href='#'><img alt='Overview Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ca&#47;CarloAncelottisRealMadridAnalysis&#47;OverviewDashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='CarloAncelottisRealMadridAnalysis&#47;OverviewDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ca&#47;CarloAncelottisRealMadridAnalysis&#47;OverviewDashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1776306529223');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1300px';vizElement.style.height='927px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1300px';vizElement.style.height='927px';} else { vizElement.style.width='100%';vizElement.style.height='8727px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></em></p>
-    </div>
-  </div>
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
 
-  <!-- FOOTER -->
-  <div id="footer">
-    <p>&copy; 2026</p>
-  </div>
+  </script>
+
+</div>
+
+<!-- FOOTER -->
+
+<div id="footer">
+
+  <p>© 2026 Soccer Scratch Page</p>
+
+</div>
 
 </body>
 </html>
