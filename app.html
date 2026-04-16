@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>World Cup Quiz</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+    :root {
+      --green: #1a6b2f;
+      --green-light: #2d9e47;
+      --gold: #f0c040;
+      --gold-dark: #c9a020;
+      --white: #ffffff;
+      --off-white: #f5f5f0;
+      --dark: #111111;
+      --gray: #555555;
+      --correct: #2ecc71;
+      --wrong: #e74c3c;
+      --card-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #0d3d1f;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(45,158,71,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(240,192,64,0.08) 0%, transparent 50%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 60px,
+          rgba(255,255,255,0.015) 60px,
+          rgba(255,255,255,0.015) 61px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 60px,
+          rgba(255,255,255,0.015) 60px,
+          rgba(255,255,255,0.015) 61px
+        );
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 60px;
+    }
+
+    /* NAV */
+    .top-nav {
+      width: 100%;
+      max-width: 720px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .top-nav a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Open Sans', sans-serif;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .top-nav a:hover { color: var(--gold); }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .trophy { font-size: 3rem; margin-bottom: 8px; }
+    .header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 20px rgba(240,192,64,0.3);
+      line-height: 1.1;
+    }
+    .header p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 36px 40px;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+
+    /* START SCREEN */
+    #start-screen { text-align: center; }
+    #start-screen h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    #start-screen p {
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .difficulty-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    .difficulty-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .diff-btn {
+      padding: 10px 24px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray);
+    }
+    .diff-btn:hover { border-color: var(--green); color: var(--green); }
+    .diff-btn.selected {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    .start-btn {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 15px rgba(26,107,47,0.3);
+    }
+    .start-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+    .start-btn:active { transform: translateY(0); }
+
+    /* QUIZ SCREEN */
+    #quiz-screen { display: none; }
+
+    .progress-bar-wrap {
+      background: #eee;
+      border-radius: 99px;
+      height: 6px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .q-counter {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+    .score-badge {
+      background: var(--green);
+      color: white;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+
+    .difficulty-tag {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .tag-easy { background: #e8f5e9; color: #2e7d32; }
+    .tag-medium { background: #fff8e1; color: #f57f17; }
+    .tag-hard { background: #fce4ec; color: #c62828; }
+
+    .question-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 520px) {
+      .options-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px 20px; }
+      .header h1 { font-size: 2rem; }
+    }
+
+    .option-btn {
+      padding: 16px 18px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--green);
+      background: #f0faf2;
+      transform: translateY(-1px);
+    }
+    .option-btn.correct {
+      background: #e8f5e9;
+      border-color: var(--correct);
+      color: #1b5e20;
+      font-weight: 600;
+    }
+    .option-btn.wrong {
+      background: #ffebee;
+      border-color: var(--wrong);
+      color: #b71c1c;
+    }
+    .option-btn:disabled { cursor: default; transform: none; }
+
+    .feedback-box {
+      min-height: 48px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .feedback-box.correct { background: #e8f5e9; color: #1b5e20; border-left: 4px solid var(--correct); }
+    .feedback-box.wrong { background: #ffebee; color: #b71c1c; border-left: 4px solid var(--wrong); }
+
+    .next-btn {
+      width: 100%;
+      background: var(--dark);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: none;
+    }
+    .next-btn:hover { background: #333; }
+
+    /* RESULTS SCREEN */
+    #results-screen { display: none; text-align: center; }
+    .results-trophy { font-size: 4rem; margin-bottom: 16px; }
+    #results-screen h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .final-score {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin: 16px 0 8px;
+    }
+    .final-score span { font-size: 1.5rem; color: var(--gray); }
+    .result-msg {
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .result-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .breakdown-item {
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      min-width: 90px;
+    }
+    .breakdown-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .breakdown-num.correct-num { color: var(--correct); }
+    .breakdown-num.wrong-num { color: var(--wrong); }
+    .breakdown-label { font-size: 0.8rem; color: var(--gray); margin-top: 2px; letter-spacing: 1px; }
+
+    .restart-btn {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 4px 15px rgba(26,107,47,0.3);
+    }
+    .restart-btn:hover { background: var(--green-light); }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="scratch.html">← Back to Soccer Page</a>
+  </div>
+
+  <div class="header">
+    <div class="trophy">🏆</div>
+    <h1>World Cup<br>Quiz</h1>
+    <p>Test your knowledge of World Cup teams &amp; legends</p>
+  </div>
+
+  <div class="card">
+
+    <!-- START SCREEN -->
+    <div id="start-screen">
+      <h2>Ready to Play?</h2>
+      <p>15 questions covering World Cup history, team performance, and individual records. Choose your difficulty and see how you stack up!</p>
+      <div class="difficulty-label">Choose Difficulty</div>
+      <div class="difficulty-btns">
+        <button class="diff-btn" onclick="selectDifficulty('easy')">🟢 Easy</button>
+        <button class="diff-btn selected" onclick="selectDifficulty('medium')">🟡 Medium</button>
+        <button class="diff-btn" onclick="selectDifficulty('hard')">🔴 Hard</button>
+      </div>
+      <button class="start-btn" onclick="startQuiz()">Kick Off ⚽</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+      <div class="quiz-meta">
+        <div class="q-counter" id="q-counter">Question 1 of 15</div>
+        <div class="score-badge" id="score-badge">Score: 0</div>
+      </div>
+      <div id="difficulty-tag" class="difficulty-tag"></div>
+      <div class="question-text" id="question-text"></div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="feedback-box" id="feedback-box"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question →</button>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="results-screen">
+      <div class="results-trophy" id="results-trophy">🏆</div>
+      <h2 id="results-title">Full Time!</h2>
+      <div class="final-score" id="final-score">0 <span>/ 15</span></div>
+      <div class="result-msg" id="result-msg"></div>
+      <div class="result-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-num correct-num" id="correct-count">0</div>
+          <div class="breakdown-label">Correct</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num wrong-num" id="wrong-count">0</div>
+          <div class="breakdown-label">Wrong</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num" id="pct-count" style="color:#333;">0%</div>
+          <div class="breakdown-label">Accuracy</div>
+        </div>
+      </div>
+      <button class="restart-btn" onclick="restartQuiz()">Play Again ↺</button>
+    </div>
+
+  </div>
+
+  <script>
+    const allQuestions = {
+      easy: [
+        {
+          q: "Which country has won the most FIFA World Cup titles?",
+          options: ["Germany", "Brazil", "Argentina", "Italy"],
+          answer: 1,
+          explanation: "Brazil has won the World Cup a record 5 times (1958, 1962, 1970, 1994, 2002)."
+        },
+        {
+          q: "How many players are on the field for each team during a World Cup match?",
+          options: ["9", "10", "11", "12"],
+          answer: 2,
+          explanation: "Each team fields 11 players, including the goalkeeper."
+        },
+        {
+          q: "Which country hosted the 2022 FIFA World Cup?",
+          options: ["UAE", "Saudi Arabia", "Qatar", "Bahrain"],
+          answer: 2,
+          explanation: "Qatar hosted the 2022 World Cup — the first held in the Middle East."
+        },
+        {
+          q: "Who is the all-time leading scorer in World Cup history?",
+          options: ["Pelé", "Ronaldo (Brazil)", "Miroslav Klose", "Just Fontaine"],
+          answer: 2,
+          explanation: "Miroslav Klose of Germany scored 16 World Cup goals across four tournaments."
+        },
+        {
+          q: "Which country won the inaugural FIFA World Cup in 1930?",
+          options: ["Brazil", "Argentina", "Italy", "Uruguay"],
+          answer: 3,
+          explanation: "Uruguay won the first World Cup, held in Montevideo, Uruguay."
+        },
+        {
+          q: "How often is the FIFA World Cup held?",
+          options: ["Every 2 years", "Every 3 years", "Every 4 years", "Every 5 years"],
+          answer: 2,
+          explanation: "The World Cup is held every four years."
+        },
+        {
+          q: "Which nation hosted AND won the 1998 FIFA World Cup?",
+          options: ["Spain", "France", "Italy", "England"],
+          answer: 1,
+          explanation: "France hosted and won the 1998 World Cup, defeating Brazil 3–0 in the final."
+        },
+        {
+          q: "What color card is shown to send a player off in soccer?",
+          options: ["Yellow", "Orange", "Red", "Blue"],
+          answer: 2,
+          explanation: "A red card results in immediate dismissal from the match."
+        },
+        {
+          q: "Which country does Lionel Messi play for internationally?",
+          options: ["Brazil", "Spain", "Argentina", "Uruguay"],
+          answer: 2,
+          explanation: "Messi represents Argentina and won the 2022 World Cup with them."
+        },
+        {
+          q: "How many teams participated in the 2022 FIFA World Cup?",
+          options: ["16", "24", "32", "48"],
+          answer: 2,
+          explanation: "32 teams competed at the 2022 World Cup in Qatar."
+        }
+      ],
+      medium: [
+        {
+          q: "Which player scored the famous 'Hand of God' goal at the 1986 World Cup?",
+          options: ["Pelé", "Diego Maradona", "Romario", "Zidane"],
+          answer: 1,
+          explanation: "Diego Maradona scored the controversial 'Hand of God' goal against England in the 1986 quarterfinals."
+        },
+        {
+          q: "Which team has appeared in the most World Cup finals?",
+          options: ["Brazil", "Germany", "Italy", "Argentina"],
+          answer: 1,
+          explanation: "Germany has appeared in 8 World Cup finals, winning 4 of them."
+        },
+        {
+          q: "Who won the Golden Boot (top scorer) at the 2018 World Cup?",
+          options: ["Kylian Mbappé", "Harry Kane", "Romelu Lukaku", "Antoine Griezmann"],
+          answer: 1,
+          explanation: "Harry Kane of England won the Golden Boot with 6 goals at Russia 2018."
+        },
+        {
+          q: "Which World Cup saw the highest-scoring game ever — 12 goals in total?",
+          options: ["1930", "1954", "1966", "1970"],
+          answer: 1,
+          explanation: "Austria beat Switzerland 7–5 in the 1954 World Cup quarterfinals — 12 goals total."
+        },
+        {
+          q: "Zinedine Zidane was infamously sent off in the 2006 World Cup final. Who did he headbutt?",
+          options: ["Gennaro Gattuso", "Marco Materazzi", "Fabio Cannavaro", "Andrea Pirlo"],
+          answer: 1,
+          explanation: "Zidane headbutted Marco Materazzi in extra time of the 2006 final, receiving a red card."
+        },
+        {
+          q: "Which African nation became the first to reach a World Cup semifinal?",
+          options: ["Nigeria", "Senegal", "Cameroon", "Morocco"],
+          answer: 3,
+          explanation: "Morocco made history in 2022 by becoming the first African nation to reach the World Cup semifinals."
+        },
+        {
+          q: "Who won the Golden Ball (best player) at the 2022 World Cup?",
+          options: ["Kylian Mbappé", "Emi Martínez", "Luka Modrić", "Lionel Messi"],
+          answer: 3,
+          explanation: "Lionel Messi won the Golden Ball at the 2022 World Cup after leading Argentina to the title."
+        },
+        {
+          q: "How many goals did Kylian Mbappé score in the 2022 World Cup final alone?",
+          options: ["1", "2", "3", "4"],
+          answer: 2,
+          explanation: "Mbappé scored a stunning hat-trick in the final, including two goals in 97 seconds."
+        },
+        {
+          q: "Which country knocked out the defending champions Germany in the 2018 group stage?",
+          options: ["Brazil", "Mexico", "South Korea", "Sweden"],
+          answer: 2,
+          explanation: "South Korea stunned Germany 2–0, eliminating the defending champions in the group stage."
+        },
+        {
+          q: "What is the name of the official World Cup trophy awarded since 1974?",
+          options: ["Jules Rimet Trophy", "FIFA World Cup Trophy", "Golden Globe Trophy", "Coupe du Monde"],
+          answer: 1,
+          explanation: "The FIFA World Cup Trophy replaced the Jules Rimet Trophy starting with the 1974 tournament."
+        }
+      ],
+      hard: [
+        {
+          q: "Just Fontaine holds the record for most goals in a single World Cup. How many did he score in 1958?",
+          options: ["11", "12", "13", "14"],
+          answer: 2,
+          explanation: "Just Fontaine of France scored an astonishing 13 goals at the 1958 World Cup in Sweden."
+        },
+        {
+          q: "Which goalkeeper won the Golden Glove at the 2022 World Cup?",
+          options: ["Hugo Lloris", "Dominik Livaković", "Emi Martínez", "Yassine Bounou"],
+          answer: 2,
+          explanation: "Emiliano Martínez of Argentina won the Golden Glove after a series of crucial saves and penalty stops."
+        },
+        {
+          q: "Which is the only team to have played in every single FIFA World Cup?",
+          options: ["Germany", "Italy", "Argentina", "Brazil"],
+          answer: 3,
+          explanation: "Brazil is the only nation to have qualified for and played in every FIFA World Cup since 1930."
+        },
+        {
+          q: "How many World Cups did Pelé win with Brazil?",
+          options: ["1", "2", "3", "4"],
+          answer: 2,
+          explanation: "Pelé won three World Cups with Brazil — in 1958, 1962, and 1970."
+        },
+        {
+          q: "Which team suffered the infamous 7–1 defeat to Germany in the 2014 World Cup semifinal?",
+          options: ["Argentina", "Colombia", "Brazil", "Chile"],
+          answer: 2,
+          explanation: "Brazil lost 7–1 to Germany in the semifinal on home soil — known as the 'Mineirazo.'"
+        },
+        {
+          q: "Luka Modrić led Croatia to the final in 2018. Which team did Croatia beat in the semifinal?",
+          options: ["Brazil", "Russia", "England", "Sweden"],
+          answer: 2,
+          explanation: "Croatia beat England 2–1 in extra time to reach the 2018 World Cup final."
+        },
+        {
+          q: "Who scored the winning penalty in the 2022 World Cup final shootout for Argentina?",
+          options: ["Lionel Messi", "Gonzalo Montiel", "Lautaro Martínez", "Leandro Paredes"],
+          answer: 1,
+          explanation: "Gonzalo Montiel scored the decisive penalty to clinch Argentina's third World Cup title."
+        },
+        {
+          q: "Which player has appeared in the most World Cup matches in history?",
+          options: ["Miroslav Klose", "Lothar Matthäus", "Cafu", "Paolo Maldini"],
+          answer: 1,
+          explanation: "Lothar Matthäus of Germany played 25 World Cup matches across five tournaments."
+        },
+        {
+          q: "At which World Cup did Italy win using a defensive style known as 'Catenaccio'?",
+          options: ["1934", "1938", "Both 1934 and 1938", "1950"],
+          answer: 2,
+          explanation: "Italy won back-to-back World Cups in 1934 and 1938, both times employing the defensive Catenaccio system."
+        },
+        {
+          q: "Which country's national team is nicknamed 'La Albiceleste'?",
+          options: ["Uruguay", "Chile", "Argentina", "Colombia"],
+          answer: 2,
+          explanation: "Argentina's national team is nicknamed 'La Albiceleste,' meaning 'the white and sky blue' in Spanish."
+        }
+      ]
+    };
+
+    let selectedDifficulty = 'medium';
+    let questions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    function selectDifficulty(level) {
+      selectedDifficulty = level;
+      document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
+      event.target.classList.add('selected');
+    }
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function startQuiz() {
+      questions = shuffle(allQuestions[selectedDifficulty]).slice(0, 10);
+      currentIndex = 0;
+      score = 0;
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('quiz-screen').style.display = 'block';
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      answered = false;
+      const q = questions[currentIndex];
+      const total = questions.length;
+
+      document.getElementById('progress-bar').style.width = ((currentIndex / total) * 100) + '%';
+      document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${total}`;
+      document.getElementById('score-badge').textContent = `Score: ${score}`;
+
+      const tag = document.getElementById('difficulty-tag');
+      tag.textContent = selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1);
+      tag.className = 'difficulty-tag tag-' + selectedDifficulty;
+
+      document.getElementById('question-text').textContent = q.q;
+
+      const grid = document.getElementById('options-grid');
+      grid.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => selectAnswer(i);
+        grid.appendChild(btn);
+      });
+
+      const fb = document.getElementById('feedback-box');
+      fb.style.display = 'none';
+      fb.className = 'feedback-box';
+
+      document.getElementById('next-btn').style.display = 'none';
+    }
+
+    function selectAnswer(index) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentIndex];
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons.forEach(b => b.disabled = true);
+
+      const fb = document.getElementById('feedback-box');
+
+      if (index === q.answer) {
+        score++;
+        buttons[index].classList.add('correct');
+        fb.className = 'feedback-box correct';
+        fb.textContent = '✓ Correct! ' + q.explanation;
+      } else {
+        buttons[index].classList.add('wrong');
+        buttons[q.answer].classList.add('correct');
+        fb.className = 'feedback-box wrong';
+        fb.textContent = '✗ Not quite. ' + q.explanation;
+      }
+
+      fb.style.display = 'block';
+      document.getElementById('score-badge').textContent = `Score: ${score}`;
+
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.style.display = 'block';
+      nextBtn.textContent = currentIndex + 1 < questions.length ? 'Next Question →' : 'See Results →';
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('quiz-screen').style.display = 'none';
+      document.getElementById('results-screen').style.display = 'block';
+
+      const total = questions.length;
+      const pct = Math.round((score / total) * 100);
+      const wrong = total - score;
+
+      document.getElementById('final-score').innerHTML = `${score} <span>/ ${total}</span>`;
+      document.getElementById('correct-count').textContent = score;
+      document.getElementById('wrong-count').textContent = wrong;
+      document.getElementById('pct-count').textContent = pct + '%';
+
+      let trophy, title, msg;
+      if (pct === 100) {
+        trophy = '🥇'; title = 'World Cup Champion!';
+        msg = 'Perfect score! You know World Cup history inside and out. Truly elite knowledge.';
+      } else if (pct >= 80) {
+        trophy = '🏆'; title = 'International Class!';
+        msg = 'Excellent performance. You clearly follow the World Cup closely.';
+      } else if (pct >= 60) {
+        trophy = '⚽'; title = 'Solid Performance!';
+        msg = 'Good effort — you know your stuff, but there\'s room to reach the next level.';
+      } else if (pct >= 40) {
+        trophy = '📋'; title = 'Room to Grow!';
+        msg = 'Not bad for a warm-up. Study up and take another shot at it!';
+      } else {
+        trophy = '🔁'; title = 'Back to Training!';
+        msg = 'The World Cup has a lot of history — keep learning and try again!';
+      }
+
+      document.getElementById('results-trophy').textContent = trophy;
+      document.getElementById('results-title').textContent = title;
+      document.getElementById('result-msg').textContent = msg;
+    }
+
+    function restartQuiz() {
+      document.getElementById('results-screen').style.display = 'none';
+      document.getElementById('start-screen').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
